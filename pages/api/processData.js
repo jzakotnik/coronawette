@@ -14,7 +14,9 @@ const parser = parse({
 const casesHistogram = {};
 
 async function parseStream() {
-  const filename = path.join(process.cwd(), "pages/api/rkistats_example.csv");
+  //const filename = path.join(process.cwd(), "pages/api/rkistats_example.csv");
+
+  const filename = path.join(process.cwd(), "pages/api/rkistats.csv");
 
   console.log(filename);
   var processedLines = 0;
@@ -27,7 +29,7 @@ async function parseStream() {
       .on("data", (row) => {
         //format 2021/04/17 00:00:00+00
         const d = DateTime.fromJSDate(new Date(row.Refdatum)).toISODate();
-        console.log("date time from stream: ", d);
+        //console.log("date time from stream: ", d);
 
         if (d in casesHistogram) {
           casesHistogram[d] = casesHistogram[d] + parseInt(row.AnzahlFall);

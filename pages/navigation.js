@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 
-export default function Navigation({ calculate, clear }) {
+export default function Navigation({ calculate, clear, load }) {
   return (
     <div>
       <Button
@@ -18,6 +18,14 @@ export default function Navigation({ calculate, clear }) {
         }}
       >
         Berechnen
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          load();
+        }}
+      >
+        Laden
       </Button>
     </div>
   );

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import styles from "../styles/Home.module.css";
 import CoronaCanvas from "./coronacanvas";
 import Navigation from "./navigation";
@@ -15,6 +15,22 @@ export default function Home() {
     canvasDraw.current.clear();
   }
 
+  async function load() {
+    const response = await fetch("/api/baseline", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    const baselineText = await response.text();
+    console.log("Received baseline: ", baselineText);
+    canvasDraw.current.loadSaveData(baselineText);
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -25,7 +41,7 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navigation calculate={calculate} clear={clear} />
+      <Navigation calculate={calculate} clear={clear} load={load} />
       <CoronaCanvas topref={canvasDraw} />
     </div>
   );
