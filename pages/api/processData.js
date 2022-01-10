@@ -54,11 +54,10 @@ function sortHistogram(sampleDates) {
   console.log("Mapping to sampled dates: ");
   Object.keys(sampleDates).forEach((v) => {
     //console.log(sampleDates[v]);
-    const timestamp = sampleDates[v].ts;
     sampleHistogram.push({
-      time: sampleDates[v].c,
+      date: sampleDates[v],
       timestamp: sampleDates[v].ts,
-      count: casesHistogram[timestamp],
+      count: casesHistogram[sampleDates[v]],
     });
   });
   sampleHistogram.sort((a, b) => a.timestamp - b.timestamp);
@@ -75,7 +74,7 @@ function initSampleDates() {
   //sampleDates.push(new DateTime(dt));
   //dt = dt.plus({ week: 1 });
   while (dt <= endDate) {
-    sampleDates.push(new DateTime(dt));
+    sampleDates.push(new DateTime(dt).toISODate());
     dt = dt.plus({ week: 1 });
   }
   return sampleDates;
