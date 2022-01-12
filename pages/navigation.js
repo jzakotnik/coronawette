@@ -19,14 +19,6 @@ export default function Navigation({ calculate, clear, load }) {
       >
         Berechnen
       </Button>
-      <Button
-        variant="contained"
-        onClick={() => {
-          load();
-        }}
-      >
-        Laden
-      </Button>
     </div>
   );
 }

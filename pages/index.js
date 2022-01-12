@@ -1,11 +1,16 @@
 import Head from "next/head";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import CoronaCanvas from "./coronacanvas";
 import Navigation from "./navigation";
+import useWindowDimensions from "./lib/useWindowDimensions";
+import AxisX from "./axisx";
+import { Typography, Grid } from "@mui/material";
 
 export default function Home() {
+  const { height, width } = useWindowDimensions();
   const canvasDraw = useRef(null);
+  const [baseline, setBaseline] = useState(null);
 
   function calculate() {
     console.log("Calculate diff", canvasDraw.current.getSaveData());
@@ -15,21 +20,25 @@ export default function Home() {
     canvasDraw.current.clear();
   }
 
-  async function load() {
-    const response = await fetch("/api/baseline", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  async function load() {}
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
+  useEffect(() => {
+    async function getBaseline() {
+      let url = "/api/baseline";
+      let config = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response = await fetch(url, config);
+      const b = await response.json();
+      setBaseline(b);
+      canvasDraw.current.loadSaveData(JSON.stringify(b.canvas));
+      console.log(b);
     }
-    const baselineText = await response.text();
-    console.log("Received baseline: ", baselineText);
-    canvasDraw.current.loadSaveData(baselineText);
-  }
+    getBaseline();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -41,8 +50,34 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navigation calculate={calculate} clear={clear} load={load} />
-      <CoronaCanvas topref={canvasDraw} />
+      <Grid
+        container
+        direction="column"
+        spacing={0}
+        sx={{ paddingLeft: 0, paddingRight: 0 }}
+      >
+        {" "}
+        <Grid
+          container
+          direction="row"
+          spacing={0}
+          sx={{ paddingLeft: 0, paddingRight: 0 }}
+        >
+          <Grid item xs={3} sx={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Typography>Bist Du einer von 80 Millionen (Virologen)?</Typography>
+          </Grid>
+          <Grid item xs={3} sx={{ paddingLeft: 0, paddingRight: 0 }}>
+            {height}, {width}
+          </Grid>
+          <Grid item xs={3} sx={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Navigation calculate={calculate} clear={clear} load={load} />
+          </Grid>{" "}
+        </Grid>
+        <Grid item xs={12}>
+          <CoronaCanvas topref={canvasDraw} />
+          {baseline && <AxisX dates={baseline.baseline.sampleDates} />}
+        </Grid>{" "}
+      </Grid>
     </div>
   );
 }

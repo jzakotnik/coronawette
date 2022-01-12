@@ -31,7 +31,7 @@ export default function CoronaCanvas({ topref }) {
       <CanvasDraw
         canvasWidth={900}
         canvasHeight={600}
-        brushRadius={6}
+        brushRadius={4}
         gridSizeX={20}
         ref={topref}
         onChange={() => console.log("onChange")}

@@ -11,19 +11,26 @@ function transformBaselineToCanvasString() {
       {
         points: [
           {
-            x: 114.5679759127084,
-            y: 375.6235417442445,
+            x: 0,
+            y: 600,
           },
         ],
-        brushColor: "#454",
-        brushRadius: 3,
+        brushColor: "#154",
+        brushRadius: 2,
       },
     ],
     width: 900,
     height: 600,
   };
   const data = baseline.sampleHistogram;
-  //TODO continue here
+  var x = 0;
+  var y = 0;
+  data.map((point) => {
+    x = x + 10;
+    y = 600 - point.count / 500;
+    baselineText.lines[0].points.push({ x: x, y: y });
+  });
+  console.log("Baseline: ", data);
   return baselineText;
 }
 
@@ -31,5 +38,5 @@ export default async function handler(req, res) {
   res.statusCode = 200;
   //add graphical transformation
   const canvasText = transformBaselineToCanvasString();
-  res.json(canvasText);
+  res.json({ canvas: canvasText, baseline: baseline });
 }
