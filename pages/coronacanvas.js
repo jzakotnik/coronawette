@@ -1,6 +1,6 @@
 import CanvasDraw from "react-canvas-draw";
 
-export default function CoronaCanvas({ topref }) {
+export default function CoronaCanvas({ topref, height, width }) {
   /*const canvasConfig = {
     loadTimeOffset: 5,
     lazyRadius: 30,
@@ -26,11 +26,12 @@ export default function CoronaCanvas({ topref }) {
     zoomExtents: { min: 0.33, max: 3 },
   };*/
   console.log("Ref in CoronaCanvas: ", topref);
+  console.log("Canvas Size ", height, width);
   return (
     <div>
       <CanvasDraw
-        canvasWidth={900}
-        canvasHeight={600}
+        canvasWidth={width}
+        canvasHeight={height}
         brushRadius={4}
         gridSizeX={20}
         ref={topref}

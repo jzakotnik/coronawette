@@ -5,7 +5,7 @@ import CoronaCanvas from "./coronacanvas";
 import Navigation from "./navigation";
 import useWindowDimensions from "./lib/useWindowDimensions";
 import AxisX from "./axisx";
-import { Typography, Grid } from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 
 export default function Home() {
   const { height, width } = useWindowDimensions();
@@ -34,8 +34,8 @@ export default function Home() {
       const response = await fetch(url, config);
       const b = await response.json();
       setBaseline(b);
-      canvasDraw.current.loadSaveData(JSON.stringify(b.canvas));
-      console.log(b);
+      //canvasDraw.current.loadSaveData(JSON.stringify(b.canvas));
+      //console.log(b);
     }
     getBaseline();
   }, []);
@@ -56,25 +56,15 @@ export default function Home() {
         spacing={0}
         sx={{ paddingLeft: 0, paddingRight: 0 }}
       >
-        {" "}
-        <Grid
-          container
-          direction="row"
-          spacing={0}
-          sx={{ paddingLeft: 0, paddingRight: 0 }}
-        >
-          <Grid item xs={3} sx={{ paddingLeft: 0, paddingRight: 0 }}>
-            <Typography>Bist Du einer von 80 Millionen (Virologen)?</Typography>
-          </Grid>
-          <Grid item xs={3} sx={{ paddingLeft: 0, paddingRight: 0 }}>
-            {height}, {width}
-          </Grid>
-          <Grid item xs={3} sx={{ paddingLeft: 0, paddingRight: 0 }}>
-            <Navigation calculate={calculate} clear={clear} load={load} />
-          </Grid>{" "}
-        </Grid>
+        <Navigation
+          calculate={calculate}
+          clear={clear}
+          load={load}
+          height={height}
+          width={width}
+        />
         <Grid item xs={12}>
-          <CoronaCanvas topref={canvasDraw} />
+          <CoronaCanvas topref={canvasDraw} height={height} width={width} />
           {baseline && <AxisX dates={baseline.baseline.sampleDates} />}
         </Grid>{" "}
       </Grid>

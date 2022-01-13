@@ -4,7 +4,7 @@ export default function AxisX({ dates }) {
 
   const datearray = [];
   dates.forEach((d, i) => {
-    console.log(d);
+    //console.log(d);
     const splitDate = d.substring(5).split("-");
     const formattedDate = splitDate[1] + "." + splitDate[0] + ".";
 
