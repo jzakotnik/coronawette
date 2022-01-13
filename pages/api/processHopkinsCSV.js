@@ -48,7 +48,7 @@ function initSampleDates() {
 
   while (dt <= endDate) {
     sampleDates.push(new DateTime(dt).toISODate());
-    dt = dt.plus({ day: 1 });
+    dt = dt.plus({ week: 1 });
   }
   return sampleDates;
 }
@@ -80,11 +80,12 @@ function convertCasesHistogram() {
   //calc deltas
   const deltas = result.map((v, i, a) => {
     if (i > 1) {
-      return { date: v.date, count: v.count - (a[i - 1].count || 0) };
+      return { date: v.date, count: (v.count - a[i - 1].count) / 7 || 0 };
     } else return { date: v.date, count: 0 };
   });
 
   console.log("Cases histogram conversion; ", deltas);
+  return deltas;
 }
 
 export default async function handler(req, res) {
@@ -96,6 +97,6 @@ export default async function handler(req, res) {
   res.json({
     days: Object.keys(casesHistogram).length,
     sampleDates: sampleDates,
-    histogram: casesHistogram,
+    histogram: resultHistogram,
   });
 }
