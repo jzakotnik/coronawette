@@ -1,5 +1,5 @@
 export default function AxisX({ dates }) {
-  console.log("Painting axis X: ", dates);
+  //console.log("Painting axis X: ", dates);
   var pos = 0;
 
   const datearray = [];
@@ -14,7 +14,7 @@ export default function AxisX({ dates }) {
   return (
     <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
       {datearray.map((d) => (
-        <text key="1" font="5px" x={d.posx} y="20">
+        <text key={d.posx} font="5px" x={d.posx} y="20">
           {d.datestring}
         </text>
       ))}

@@ -2,8 +2,8 @@ import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
 import { Typography, Grid, Box } from "@mui/material";
 
-export default function Navigation({ calculate, clear, load, height, width }) {
-  console.log("Size of window: ", height, width);
+export default function Navigation({ calculate }) {
+  //console.log("Size of window: ", height, width);
   return (
     <Box
       sx={{

@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-/pages/api/rkistats.csv
-pages/api/rkistats.csv
+/pages/api/rkista*.csv
+pages/api/rkista*.csv
 
 # dependencies
 /node_modules
@@ -36,3 +36,4 @@ yarn-error.log*
 # vercel
 .vercel
 pages/api/rkistats_example.csv
+pages/api/covidtimeseries.csv
