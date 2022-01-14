@@ -80,7 +80,10 @@ function convertCasesHistogram() {
   //calc deltas
   const deltas = result.map((v, i, a) => {
     if (i > 1) {
-      return { date: v.date, count: (v.count - a[i - 1].count) / 7 || 0 };
+      return {
+        date: v.date,
+        count: Math.floor((v.count - a[i - 1].count) / 7) || 0,
+      };
     } else return { date: v.date, count: 0 };
   });
 
@@ -92,10 +95,10 @@ export default async function handler(req, res) {
   await parseStream();
   const sampleDates = initSampleDates();
   const resultHistogram = convertCasesHistogram(); //convert from cumulative
-
+  resultHistogram.map((d) => console.log(d.count));
   res.statusCode = 200;
   res.json({
-    days: Object.keys(casesHistogram).length,
+    weeks: Object.keys(resultHistogram).length,
     sampleDates: sampleDates,
     histogram: resultHistogram,
   });

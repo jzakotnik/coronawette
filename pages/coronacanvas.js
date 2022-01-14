@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import NoSsr from "@mui/material/NoSsr";
 
-export default function CoronaCanvas({ topref }) {
+export default function CoronaCanvas({ topref, resizeHandler }) {
   /*const canvasConfig = {
     loadTimeOffset: 5,
     lazyRadius: 30,
@@ -32,8 +32,9 @@ export default function CoronaCanvas({ topref }) {
 
   const { height, width } = useWindowDimensions();
   const paddingFactorY = 0.8;
-  console.log("Ref in CoronaCanvas: ", topref);
-  console.log("Canvas Size ", height, width);
+  //console.log("Ref in CoronaCanvas: ", topref);
+  //console.log("Canvas Size ", height, width);
+  resizeHandler(height, width);
 
   return (
     <NoSsr>
