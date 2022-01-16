@@ -1,6 +1,10 @@
 import CanvasDraw from "react-canvas-draw";
+import useWindowDimensions from "./useWindowDimensions";
+import { useState, useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
+import NoSsr from "@mui/material/NoSsr";
 
-export default function CoronaCanvas({ topref, height, width }) {
+export default function CoronaCanvas({ topref, resizeHandler }) {
   /*const canvasConfig = {
     loadTimeOffset: 5,
     lazyRadius: 30,
@@ -25,18 +29,23 @@ export default function CoronaCanvas({ topref, height, width }) {
     mouseZoomFactor: 0.01,
     zoomExtents: { min: 0.33, max: 3 },
   };*/
-  console.log("Ref in CoronaCanvas: ", topref);
-  console.log("Canvas Size ", height, width);
+
+  const { height, width } = useWindowDimensions();
+  const paddingFactorY = 0.8;
+  //console.log("Ref in CoronaCanvas: ", topref);
+  //console.log("Canvas Size ", height, width);
+  resizeHandler(height, width);
+
   return (
-    <div>
+    <NoSsr>
       <CanvasDraw
         canvasWidth={width}
-        canvasHeight={height}
-        brushRadius={4}
+        canvasHeight={height * paddingFactorY}
+        brushRadius={2}
         gridSizeX={20}
         ref={topref}
         onChange={() => console.log("onChange")}
       />
-    </div>
+    </NoSsr>
   );
 }
