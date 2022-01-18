@@ -1,6 +1,7 @@
-export default function AxisX({ dates }) {
+export default function AxisX({ dates, canvasSize }) {
   //console.log("Painting axis X: ", dates);
   var pos = 0;
+  const { height, width } = canvasSize;
 
   const datearray = [];
   dates.forEach((d, i) => {

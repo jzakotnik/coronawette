@@ -30,6 +30,7 @@ export default function Navigation({ calculate }) {
         </Grid>
 
         <Grid
+          item
           xs={6}
           sx={{ paddingLeft: 0, paddingRight: 0 }}
           justifyContent="right"

@@ -37,3 +37,4 @@ yarn-error.log*
 .vercel
 pages/api/rkistats_example.csv
 pages/api/covidtimeseries.csv
+pages/api/covidtimeseries_backup.csv

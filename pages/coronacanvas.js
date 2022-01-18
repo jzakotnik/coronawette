@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import NoSsr from "@mui/material/NoSsr";
 
-export default function CoronaCanvas({ topref, resizeHandler }) {
-  /*const canvasConfig = {
+/*const canvasConfig = {
     loadTimeOffset: 5,
     lazyRadius: 30,
     brushRadius: 6,
@@ -30,22 +29,60 @@ export default function CoronaCanvas({ topref, resizeHandler }) {
     zoomExtents: { min: 0.33, max: 3 },
   };*/
 
-  const { height, width } = useWindowDimensions();
+export default function CoronaCanvas({ baseline, canvasSize }) {
+  const canvasDraw = useRef();
+  const fooRef = useRef(null);
+  const { height, width } = canvasSize;
+
+  /*useEffect(() => {
+    console.log(
+      "[CoronaCanvas] Initial UseEffect with Canvas Size and baseline",
+      canvasDraw,
+      baseline
+    );
+    if (canvasDraw.current !== undefined && baseline !== null) {
+      console.log("initial canvasDraw ", canvasDraw, baseline);
+      canvasDraw.current.clear();
+      canvasDraw.current.loadSaveData(JSON.stringify(baseline.canvas));
+    }
+  }, []);*/
+
+  useEffect(() => {
+    console.log(
+      "[CoronaCanvas] Re-Render due to Resize - UseEffect with Canvas Size and baseline",
+      canvasDraw,
+      baseline
+    );
+    if (canvasDraw.current !== undefined && baseline !== null) {
+      //console.log("canvasDraw ", canvasDraw);
+      canvasDraw.current.clear();
+
+      canvasDraw.current.loadSaveData(JSON.stringify(baseline.canvas));
+    }
+  }, [canvasSize]);
+
   const paddingFactorY = 0.8;
   //console.log("Ref in CoronaCanvas: ", topref);
-  //console.log("Canvas Size ", height, width);
-  resizeHandler(height, width);
+  /*console.log(
+    "[CoronaCanvas] Re-render with Canvas Size and baseline",
+    width,
+    height,
+    baseline
+  );*/
 
   return (
-    <NoSsr>
+    <div ref={fooRef}>
       <CanvasDraw
         canvasWidth={width}
         canvasHeight={height * paddingFactorY}
         brushRadius={2}
         gridSizeX={20}
-        ref={topref}
-        onChange={() => console.log("onChange")}
+        baseline={baseline}
+        ref={canvasDraw}
+        onChange={() => {
+          console.log("onChange");
+        }}
       />
-    </NoSsr>
+    </div>
   );
 }
