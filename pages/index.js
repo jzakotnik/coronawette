@@ -15,7 +15,19 @@ export default function Home() {
   const [canvasSize, setCanvasSize] = useState({ height: 600, width: 900 });
 
   function calculate() {
-    //console.log("Calculate diff", canvasDraw.current.getSaveData());
+    console.log("Save line", canvasDraw.current.getSaveData());
+    //const drawCurve = canvasDraw.current.getSaveData();
+    //const newLines = baseline.canvas.push(drawCurve.line)
+  }
+
+  function onDrawHandler(saveData) {
+    const drawnLines = JSON.parse(saveData).lines;
+    if (drawnLines.length > 1) {
+      console.log("Painted a new curve", drawnLines[1].points);
+      const originalBaseline = baseline;
+      originalBaseline.canvas.lines.push(drawnLines[1]);
+      setBaseline(originalBaseline);
+    }
   }
 
   async function getBaseline() {
@@ -89,6 +101,7 @@ export default function Home() {
           <CoronaCanvas
             canvasSize={canvasSize}
             baseline={baseline}
+            onDrawHandler={onDrawHandler}
             key={baseline}
           />
 

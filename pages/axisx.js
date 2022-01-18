@@ -12,13 +12,26 @@ export default function AxisX({ dates, canvasSize }) {
     if (i % 5 == 0) datearray.push({ datestring: formattedDate, posx: i * 10 });
   });
 
-  return (
+  /*return (
     <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
       {datearray.map((d) => (
         <text key={d.posx} font="5px" x={d.posx} y="20">
           {d.datestring}
         </text>
       ))}
+    </svg>
+  );*/
+  return (
+    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+      <text key={10} font="5px" x={0} y="20">
+        Vor 6 Monaten
+      </text>
+      <text key={10} font="5px" x="430" y="20">
+        Heute
+      </text>
+      <text key={10} font="5px" x="700" y="20">
+        In 6 Monaten
+      </text>
     </svg>
   );
 }

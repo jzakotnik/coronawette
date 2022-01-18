@@ -29,7 +29,7 @@ import NoSsr from "@mui/material/NoSsr";
     zoomExtents: { min: 0.33, max: 3 },
   };*/
 
-export default function CoronaCanvas({ baseline, canvasSize }) {
+export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
   const canvasDraw = useRef();
   const fooRef = useRef(null);
   const { height, width } = canvasSize;
@@ -81,6 +81,7 @@ export default function CoronaCanvas({ baseline, canvasSize }) {
         ref={canvasDraw}
         onChange={() => {
           console.log("onChange");
+          onDrawHandler(canvasDraw.current.getSaveData());
         }}
       />
     </div>
