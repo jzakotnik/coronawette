@@ -42,8 +42,8 @@ async function parseStream() {
 function initSampleDates() {
   const sampleDates = [];
 
-  const startDate = DateTime.fromISO("2021-01-12");
-  const endDate = DateTime.fromISO("2022-01-12");
+  const startDate = DateTime.fromISO("2021-01-19");
+  const endDate = DateTime.fromISO("2022-01-19");
   var dt = new DateTime(startDate);
 
   while (dt <= endDate) {

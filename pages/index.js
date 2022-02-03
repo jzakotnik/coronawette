@@ -15,7 +15,10 @@ export default function Home() {
   const [canvasSize, setCanvasSize] = useState({ height: 600, width: 900 });
 
   function calculate() {
-    console.log("Save line", canvasDraw.current.getSaveData());
+    //console.log("Save line", canvasDraw.current.getSaveData());
+    console.log("Sharing the baseline + estimate: ", baseline);
+    const newBaseline = calculateUpdatedBaseline(baseline);
+    setBaseline(newBaseline);
     //const drawCurve = canvasDraw.current.getSaveData();
     //const newLines = baseline.canvas.push(drawCurve.line)
   }
@@ -33,6 +36,7 @@ export default function Home() {
   async function getBaseline() {
     let url =
       "/api/baseline?" + new URLSearchParams({ height: 600, width: 900 });
+    console.log(url);
 
     let config = {
       method: "GET",
@@ -74,10 +78,7 @@ export default function Home() {
     }
   }, [hasWindow]);
 
-  useEffect(() => {
-    getBaseline();
-    console.log("Fetched initial baseline: ", baseline);
-  }, []);
+  console.log("Rendering...");
 
   return (
     <div className={styles.container}>
@@ -102,7 +103,6 @@ export default function Home() {
             canvasSize={canvasSize}
             baseline={baseline}
             onDrawHandler={onDrawHandler}
-            key={baseline}
           />
 
           {baseline && (

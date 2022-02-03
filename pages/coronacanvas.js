@@ -30,8 +30,8 @@ import NoSsr from "@mui/material/NoSsr";
   };*/
 
 export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
-  const canvasDraw = useRef();
-  const fooRef = useRef(null);
+  const canvasDraw = useRef(null);
+
   const { height, width } = canvasSize;
 
   /*useEffect(() => {
@@ -54,8 +54,7 @@ export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
       baseline
     );
     if (canvasDraw.current !== undefined && baseline !== null) {
-      //console.log("canvasDraw ", canvasDraw);
-      canvasDraw.current.clear();
+      //canvasDraw.current.clear();
 
       canvasDraw.current.loadSaveData(JSON.stringify(baseline.canvas));
     }
@@ -69,21 +68,22 @@ export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
     height,
     baseline
   );*/
+  console.log("Corona Canvas, Rendering...", canvasDraw.current);
 
   return (
-    <div ref={fooRef}>
-      <CanvasDraw
-        canvasWidth={width}
-        canvasHeight={height * paddingFactorY}
-        brushRadius={2}
-        gridSizeX={20}
-        baseline={baseline}
-        ref={canvasDraw}
-        onChange={() => {
-          console.log("onChange");
-          onDrawHandler(canvasDraw.current.getSaveData());
-        }}
-      />
-    </div>
+    <CanvasDraw
+      canvasWidth={width}
+      canvasHeight={height * paddingFactorY}
+      brushRadius={2}
+      gridSizeX={20}
+      loadTimeOffset={0}
+      immediateLoading={true}
+      ref={canvasDraw}
+      onChange={() => {
+        console.log("onChange");
+
+        //onDrawHandler(canvasDraw.current.getSaveData());
+      }}
+    />
   );
 }
