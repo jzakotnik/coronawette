@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import CoronaCanvas from "./coronacanvas";
 import useWindowDimensions from "./useWindowDimensions";
 import NoSsr from "@mui/material/NoSsr";
+import hash from "object-hash";
 
 import Navigation from "./navigation";
 
@@ -78,7 +79,7 @@ export default function Home() {
     }
   }, [hasWindow]);
 
-  console.log("Rendering...");
+  console.log("Rendering...", baseline);
 
   return (
     <div className={styles.container}>
@@ -102,6 +103,7 @@ export default function Home() {
           <CoronaCanvas
             canvasSize={canvasSize}
             baseline={baseline}
+            key={hash(baseline)}
             onDrawHandler={onDrawHandler}
           />
 

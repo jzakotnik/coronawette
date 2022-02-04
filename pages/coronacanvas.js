@@ -31,7 +31,6 @@ import NoSsr from "@mui/material/NoSsr";
 
 export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
   const canvasDraw = useRef(null);
-
   const { height, width } = canvasSize;
 
   /*useEffect(() => {
@@ -48,15 +47,21 @@ export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
   }, []);*/
 
   useEffect(() => {
-    console.log(
-      "[CoronaCanvas] Re-Render due to Resize - UseEffect with Canvas Size and baseline",
-      canvasDraw,
-      baseline
-    );
+    debugger;
     if (canvasDraw.current !== undefined && baseline !== null) {
       //canvasDraw.current.clear();
-
+      console.log(
+        "[CoronaCanvas] Re-Render due to resize or changed key - UseEffect with Canvas Size and baseline",
+        canvasDraw,
+        baseline
+      );
       canvasDraw.current.loadSaveData(JSON.stringify(baseline.canvas));
+    } else {
+      console.log(
+        "[Coronacanvas] Should render, but the canvas or the baseline are not yet available",
+        canvasDraw,
+        baseline
+      );
     }
   }, [canvasSize]);
 
@@ -68,7 +73,7 @@ export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
     height,
     baseline
   );*/
-  console.log("Corona Canvas, Rendering...", canvasDraw.current);
+  //console.log("Corona Canvas, Rendering...", canvasDraw.current);
 
   return (
     <CanvasDraw
@@ -81,7 +86,6 @@ export default function CoronaCanvas({ baseline, canvasSize, onDrawHandler }) {
       ref={canvasDraw}
       onChange={() => {
         console.log("onChange");
-
         //onDrawHandler(canvasDraw.current.getSaveData());
       }}
     />
