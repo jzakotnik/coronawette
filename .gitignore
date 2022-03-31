@@ -1,8 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-/pages/api/rkista*.csv
-pages/api/rkista*.csv
-
 # dependencies
 /node_modules
 /.pnp
@@ -11,31 +8,16 @@ pages/api/rkista*.csv
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # production
 /build
 
 # misc
 .DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# vercel
-.vercel
-pages/api/rkistats_example.csv
-pages/api/covidtimeseries.csv
-pages/api/covidtimeseries_backup.csv
-pages/api/baseline_saved_example.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
